@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Amigos</string>
+    <string name="drawer_header_text">Get Done Now</string>
+    <string name="action_job_summary">Job Summary</string>
+    <string name="action_service_selector">Service Selector</string>
+    <string name="server_client_id">1054636785796-j4ekc1r25nlmq0ut4fgehdqbi3i1o1on.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId">1054636785796</string>
+</resources>
