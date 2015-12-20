@@ -21,6 +21,7 @@ public class GDNSharedPrefrences {
     private static String currentService;
     private static String acctId;
     private static String serviceId;
+    private static String currentState;
 
     public static String getAcctEmail() {
         return acctEmail;
@@ -96,5 +97,13 @@ public class GDNSharedPrefrences {
 
     public static void setServiceId(String serviceId) {
         GDNSharedPrefrences.serviceId = serviceId;
+    }
+
+    public static String getCurrentState() {
+        return currentState;
+    }
+
+    public static void setCurrentState(String currentState) {
+        GDNSharedPrefrences.currentState = currentState;
     }
 }

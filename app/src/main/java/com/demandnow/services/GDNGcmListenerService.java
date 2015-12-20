@@ -1,5 +1,6 @@
 package com.demandnow.services;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.util.Log;
 
 import com.demandnow.R;
 import com.demandnow.activity.MainActivity;
+import com.demandnow.helpers.GDNConstants;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
@@ -20,6 +22,9 @@ import com.google.android.gms.gcm.GcmListenerService;
 public class GDNGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
+    NotificationCompat.Builder notificationBuilder;
+    NotificationManager notificationManager;
+    int id = 946;
 
     /**
      * Called when message is received.
@@ -69,18 +74,33 @@ public class GDNGcmListenerService extends GcmListenerService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        Intent rejectIntent = new Intent(this, MainActivity.class);
+        rejectIntent.setAction(GDNConstants.ACTION_REJECT);
+        PendingIntent piDismiss = PendingIntent.getActivity(this, 0, rejectIntent, 0);
+
+        Intent acceptIntent = new Intent(this, MainActivity.class);
+        acceptIntent.setAction(GDNConstants.ACTION_ACCEPT);
+        PendingIntent piSnooze = PendingIntent.getActivity(this, 0, acceptIntent, 0);
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("GCM Message")
+        notificationBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("New Job Alert")
                 .setContentText(message)
-                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_play_light)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("A new Job is available for you"))
+                .addAction(R.drawable.ic_cancel_white_24dp,
+                       "Reject", piDismiss)
+                .addAction(R.drawable.ic_check_circle_white_24dp,
+                        "Accept", piSnooze);
 
-        NotificationManager notificationManager =
+        notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(id, notificationBuilder.build());
     }
+
 }
