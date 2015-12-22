@@ -10,4 +10,5 @@ public class GDNConstants {
     public static String ONLINE = "ONLINE";
     public static String OFFLINE = "OFFLINE";
     public static final String COUNTDOWN_BR = "com.demandnow.amigos.intent.countdown_br";
+    public static final String ACTION_DETAILS = "com.demandnow.amigos.intents.ACTION_DETAILS";
 }

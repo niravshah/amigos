@@ -227,6 +227,10 @@ public class NewLoginActivity extends AppCompatActivity implements
         if (isSignedIn) {
             // Display signed-in UI
             GoogleSignInAccount gsa = gsr.getSignInAccount();
+            GDNSharedPrefrences.setAcctName(gsa.getDisplayName());
+            GDNSharedPrefrences.setPhotUrl(gsa.getPhotoUrl().toString());
+            GDNSharedPrefrences.setAcctEmail(gsa.getEmail());
+            GDNSharedPrefrences.setAcctId(gsa.getId());
 
             // Save Google Sign In to SmartLock
             Credential credential = new Credential.Builder(gsa.getEmail())
@@ -236,8 +240,8 @@ public class NewLoginActivity extends AppCompatActivity implements
                     .build();
 
             saveCredentialIfConnected(credential);
-            startGCMRegistrationService();
             contactServerForSubscription(gsr);
+            startGCMRegistrationService();
         } else {
             // Display signed-out UI
 

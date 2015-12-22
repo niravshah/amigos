@@ -182,6 +182,7 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
                     public void onResponse(JSONObject response) {
                         GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
                         onlineBtn.setText("GO OFFLINE");
+                        Toast.makeText(MainActivity.this, "You are Online!", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -201,6 +202,7 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
                     public void onResponse(JSONObject response) {
                         GDNSharedPrefrences.setCurrentState(GDNConstants.OFFLINE);
                         onlineBtn.setText("GO ONLINE");
+                        Toast.makeText(MainActivity.this, "You are Offline", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override

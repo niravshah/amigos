@@ -39,6 +39,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.NewJobRequestActivity"
+            android:label="New Job Request"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+            <intent-filter>
+                <action android:name=".activity.NewJobRequestActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.ServiceSelectorActivity"
             android:label="Service Selector"
             android:parentActivityName=".activity.MainActivity">
