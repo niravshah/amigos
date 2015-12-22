@@ -3,12 +3,20 @@ package com.amigos.activity;
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amigos.R;
+import com.amigos.helpers.GDNApiHelper;
 import com.amigos.helpers.GDNSharedPrefrences;
+import com.amigos.helpers.GDNVolleySingleton;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.directions.route.Route;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
@@ -25,6 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -77,11 +87,6 @@ public class NewJobRequestActivity extends GDNBaseActivity implements View.OnCli
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.new_request_map);
         mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override
@@ -209,4 +214,58 @@ public class NewJobRequestActivity extends GDNBaseActivity implements View.OnCli
     public void onRoutingCancelled() {
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.accept_request:
+                acceptRequest();
+                break;
+            case R.id.reject_request:
+                rejectRequest();
+                break;
+        }
+    }
+
+    private void rejectRequest() {
+        String url = GDNApiHelper.REQUEST_REJECT + requesterId + "/" + jobId + "/reject";
+        JsonObjectRequest request =    new JsonObjectRequest
+                (Request.Method.GET,url , new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), "Job Request Rejected", Toast.LENGTH_LONG).show();
+                        NavUtils.navigateUpFromSameTask(NewJobRequestActivity.this);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.e("VolleyErorr", error.getLocalizedMessage() + error.getMessage());
+                    }
+                });
+        GDNVolleySingleton.getInstance(this).addToRequestQueue(request);
+
+    }
+
+    private void acceptRequest() {
+        String url = GDNApiHelper.REQUEST_REJECT + requesterId + "/" + jobId + "/accept";
+        JsonObjectRequest request =    new JsonObjectRequest
+                (Request.Method.GET,url , new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), "Job Request Accepted", Toast.LENGTH_LONG).show();
+                        NavUtils.navigateUpFromSameTask(NewJobRequestActivity.this);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.e("VolleyErorr", error.getLocalizedMessage() + error.getMessage());
+                    }
+                });
+        GDNVolleySingleton.getInstance(this).addToRequestQueue(request);
+
+    }
+
+
 }

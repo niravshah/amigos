@@ -17,4 +17,5 @@ public class GDNApiHelper {
     public static final String STATE_AVAILABLE = BASE_URL + "/ninja/" + GDNSharedPrefrences.getAcctId() + "/" + GDNSharedPrefrences.getServiceId() + "/available/" + GDNSharedPrefrences.getLastLocation().getLatitude() + "/" + GDNSharedPrefrences.getLastLocation().getLongitude();
     public static final String STATE_UNAVAILABLE = BASE_URL + "/ninja/" + GDNSharedPrefrences.getAcctId() + "/" + GDNSharedPrefrences.getServiceId() + "/unavailable";
 
+    public static final String REQUEST_REJECT = BASE_URL + "/job/";
 }
