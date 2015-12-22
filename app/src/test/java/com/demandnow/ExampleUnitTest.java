@@ -1,4 +1,4 @@
-package com.demandnow;
+package com.amigos;
 
 import org.junit.Test;
 

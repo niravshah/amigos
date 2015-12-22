@@ -3,7 +3,7 @@
     <string name="drawer_header_text">Get Done Now</string>
     <string name="action_job_summary">Job List</string>
     <string name="action_service_selector">Service Selector</string>
-    <string name="server_client_id">1054636785796-j4ekc1r25nlmq0ut4fgehdqbi3i1o1on.apps.googleusercontent.com</string>
-    <string name="gcm_defaultSenderId">1054636785796</string>
+    <string name="server_client_id">456137028163-js02529oilihsdcn1sq5ovtdjmp6rbpn.apps.googleusercontent.com</string>
+    <!--string name="gcm_defaultSenderId">1054636785796</string-->
     <string name="google_maps_key">AIzaSyDCxusYIjx84-CBa9I00fn35gw1PqtS_q4</string>
 </resources>

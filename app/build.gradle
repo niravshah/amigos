@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.demandnow"
+        applicationId "com.amigos"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
@@ -27,6 +28,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-identity:8.3.0'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile 'com.google.android.gms:play-services-auth:8.3.0'
     compile 'com.mcxiaoke.volley:library:1.0.17'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.android.support:cardview-v7:23.0.+'
