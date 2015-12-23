@@ -1,6 +1,7 @@
 package com.amigos.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.amigos.R;
+import com.amigos.activity.JobDetailsActivity;
 import com.amigos.model.JobInfo;
 
 import java.util.List;
@@ -34,6 +36,7 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         JobInfo item = mItems.get(i);
         viewHolder.mJobItem.setText(item.getJobId());
         viewHolder.mJobItemstatus.setText(item.getJobStatus());
+        viewHolder.jobInfo = item.getJobDetails();
     }
 
     @Override
@@ -45,6 +48,7 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
 
         private final TextView mJobItem;
         private final TextView mJobItemstatus;
+        private String jobInfo;
         private Context context;
 
 
@@ -58,8 +62,10 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
 
         @Override
         public void onClick(View v) {
-
-
+            Intent intent = new Intent(context, JobDetailsActivity.class);
+            intent.putExtra("jobId", mJobItem.getText());
+            intent.putExtra("details", jobInfo);
+            context.startActivity(intent);
         }
     }
 

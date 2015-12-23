@@ -76,7 +76,7 @@
                     android:id="@+id/select_service"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_check_circle_black_24dp"/>
+                    android:src="@drawable/ic_check_circle_white_24dp"/>
             </LinearLayout>
         </LinearLayout>
 

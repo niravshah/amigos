@@ -93,7 +93,7 @@ public class PendingJobsTabFragment extends Fragment {
                             String next = respIterator.next();
                             try {
                                 JSONArray arr = (JSONArray) response.get(next);
-                                jobInfos.add(new JobInfo(next,arr.getString(1)));
+                                jobInfos.add(new JobInfo(next,arr.getString(1),arr.getString(0)));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

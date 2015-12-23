@@ -35,7 +35,7 @@
                 android:gravity="center_vertical|center_horizontal">
 
                 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/new_request_map"
+                    android:id="@+id/job_details_map"
                     android:name="com.google.android.gms.maps.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -65,22 +65,14 @@
                     android:layout_width="150dp"
                     android:textSize="16dp"
                     android:layout_height="40dp"
-                    android:text="ACCEPT"
-                    android:id="@+id/accept_request"
+                    android:text="MARK COMPLETE"
+                    android:id="@+id/request_complete"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/accent"
                     android:elevation="20dp"
                     android:textColor="#ffffff" />
 
-                <Button
-                    android:layout_marginTop="10dp"
-                    android:layout_width="75dp"
-                    android:layout_height="30dp"
-                    android:textSize="12dp"
-                    android:text="REJECT"
-                    android:id="@+id/reject_request"
-                    android:background="@color/primary_dark"
-                    android:layout_gravity="center_horizontal" />
+
 
             </LinearLayout>
         </LinearLayout>

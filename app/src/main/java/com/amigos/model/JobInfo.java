@@ -7,10 +7,12 @@ public class JobInfo {
 
     String jobId;
     String jobStatus;
+    String jobDetails;
 
-    public JobInfo(String jobId, String jStatus) {
+    public JobInfo(String jobId, String jStatus, String details) {
         this.jobId = jobId;
         this.jobStatus = jStatus;
+        this.jobDetails = details;
     }
 
 
@@ -28,5 +30,9 @@ public class JobInfo {
 
     public void setJobStatus(String jobStatus) {
         this.jobStatus = jobStatus;
+    }
+
+    public String getJobDetails() {
+        return jobDetails;
     }
 }

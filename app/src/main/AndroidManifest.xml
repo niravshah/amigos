@@ -66,6 +66,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity.JobDetailsActivity"
+            android:label="Job Details"
+            android:parentActivityName=".activity.JobSummaryViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.JobSummaryViewActivity" />
+        </activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
