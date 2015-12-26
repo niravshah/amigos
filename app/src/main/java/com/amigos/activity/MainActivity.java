@@ -60,8 +60,7 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
 
         onlineBtn = (Button) findViewById(R.id.go_online);
         onlineBtn.setOnClickListener(this);
-        GDNSharedPrefrences.setCurrentState(GDNConstants.OFFLINE);
-        onlineBtn.setText("GO ONLINE");
+
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.ninja_location_map);
         mapFragment.getMapAsync(this);
 
@@ -96,20 +95,24 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
     @Override
     public void onConnected(Bundle connectionHint) {
 
-        Toast.makeText(MainActivity.this, "Google API Connected", Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, "Google API Connected", Toast.LENGTH_LONG).show();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
             GDNSharedPrefrences.setLastLocation(mLastLocation);
-            Toast.makeText(MainActivity.this, "Location Updated", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Location Updated", Toast.LENGTH_LONG).show();
             if (GDNSharedPrefrences.getMap() != null) {
-
                 GDNSharedPrefrences.getMap().getUiSettings().setMyLocationButtonEnabled(true);
                 GDNSharedPrefrences.getMap().setMyLocationEnabled(true);
                 GDNSharedPrefrences.getMap().getUiSettings().setScrollGesturesEnabled(false);
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 15);
                 GDNSharedPrefrences.getMap().animateCamera(cameraUpdate);
             }
+
+            GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
+            sendAvailableRequesttoServer(GDNApiHelper.STATE_AVAILABLE);
+            onlineBtn.setText("GO OFFLINE");
+
         }
 
     }
@@ -143,6 +146,7 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Toast.makeText(MainActivity.this, "Google API Connection Failed!", Toast.LENGTH_LONG).show();
     }
+
 
     @Override
     public void onClick(View v) {

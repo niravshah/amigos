@@ -39,6 +39,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.onboard.NewUserRegistrationActivity"
+            android:label="New User Registration"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".activity.onboard.LocationPermissionActivity"
+            android:label="Location Permission"
+            android:parentActivityName=".activity.onboard.NewUserRegistrationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.onboard.NewUserRegistrationActivity" />
+        </activity>
+
+        <activity
             android:name=".activity.NewJobRequestActivity"
             android:label="New Job Request"
             android:parentActivityName=".activity.MainActivity">

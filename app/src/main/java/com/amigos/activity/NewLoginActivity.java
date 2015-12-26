@@ -395,10 +395,10 @@ public class NewLoginActivity extends AppCompatActivity implements
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            GDNSharedPrefrences.setServiceId(defaultService);
+                            GDNSharedPrefrences.setCurrentService(defaultServiceName);
 
                             if (active) {
-                                GDNSharedPrefrences.setServiceId(defaultService);
-                                GDNSharedPrefrences.setCurrentService(defaultServiceName);
                                 if (ContextCompat.checkSelfPermission(NewLoginActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                                         != PackageManager.PERMISSION_GRANTED) {
                                     ActivityCompat.requestPermissions(NewLoginActivity.this,

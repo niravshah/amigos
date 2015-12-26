@@ -103,7 +103,8 @@ public class GDNGcmListenerService extends GcmListenerService {
                        "Reject", piDismiss)
                 .addAction(R.drawable.ic_check_circle_white_24dp,
                         "Accept", piSnooze)
-                .setAutoCancel(false);
+                .setAutoCancel(true);
+
         notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
