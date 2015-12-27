@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
+    <!--item
         android:id="@+id/notifications"
         android:icon="@drawable/ic_notifications_active_24dp"
         android:title="@string/action_job_summary"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"/-->
     <item
         android:id="@+id/action_job_summary"
         android:icon="@drawable/ic_list_24dp"

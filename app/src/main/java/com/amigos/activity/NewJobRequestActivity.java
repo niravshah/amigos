@@ -228,7 +228,7 @@ public class NewJobRequestActivity extends GDNBaseActivity implements View.OnCli
     }
 
     private void rejectRequest() {
-        String url = GDNApiHelper.REQUEST_REJECT + jobId  + "/" + requesterId + "/reject";
+        String url = GDNApiHelper.JOB_REQUEST + jobId  + "/" + requesterId + "/reject";
         JsonObjectRequest request =    new JsonObjectRequest
                 (Request.Method.GET,url , new Response.Listener<JSONObject>() {
                     @Override
@@ -248,7 +248,7 @@ public class NewJobRequestActivity extends GDNBaseActivity implements View.OnCli
     }
 
     private void acceptRequest() {
-        String url = GDNApiHelper.REQUEST_REJECT + jobId + "/" + requesterId + "/accept";
+        String url = GDNApiHelper.JOB_REQUEST + jobId + "/" + requesterId + "/accept";
         JsonObjectRequest request =    new JsonObjectRequest
                 (Request.Method.GET,url , new Response.Listener<JSONObject>() {
                     @Override

@@ -8,11 +8,55 @@ public class JobInfo {
     String jobId;
     String jobStatus;
     String jobDetails;
+    Double pickupLat;
+    Double pickupLon;
+    Double dropLat;
+    Double dropLon;
+    String requesterId;
 
-    public JobInfo(String jobId, String jStatus, String details) {
+    public String getRequesterId() {
+        return requesterId;
+    }
+
+    public void setRequesterId(String requesterId) {
+        this.requesterId = requesterId;
+    }
+
+    public Double getPickupLat() {
+        return pickupLat;
+    }
+
+    public void setPickupLat(Double pickupLat) {
+        this.pickupLat = pickupLat;
+    }
+
+    public Double getPickupLon() {
+        return pickupLon;
+    }
+
+    public void setPickupLon(Double pickupLon) {
+        this.pickupLon = pickupLon;
+    }
+
+    public Double getDropLat() {
+        return dropLat;
+    }
+
+    public void setDropLat(Double dropLat) {
+        this.dropLat = dropLat;
+    }
+
+    public Double getDropLon() {
+        return dropLon;
+    }
+
+    public void setDropLon(Double dropLon) {
+        this.dropLon = dropLon;
+    }
+
+    public JobInfo(String jobId, String jStatus) {
         this.jobId = jobId;
         this.jobStatus = jStatus;
-        this.jobDetails = details;
     }
 
 
@@ -34,5 +78,9 @@ public class JobInfo {
 
     public String getJobDetails() {
         return jobDetails;
+    }
+
+    public void setJobDetails(String jobDetails) {
+        this.jobDetails = jobDetails;
     }
 }

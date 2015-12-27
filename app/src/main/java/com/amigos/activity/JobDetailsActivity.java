@@ -63,16 +63,14 @@ public class JobDetailsActivity extends GDNBaseActivity implements View.OnClickL
         renderChildActivityToolbar();
 
         Bundle extras = getIntent().getExtras();
-        String jobDetails = extras.getString("details");
-        String[] parts = jobDetails.split(":");
 
-        requesterId = parts[0];
-        jobId = parts[1];
-        Double pickupLat = Double.valueOf(parts[2]);
-        Double pickupLon = Double.valueOf(parts[3]);
-        Double dropLat = Double.valueOf(parts[4]);
-        Double dropLon = Double.valueOf(parts[5]);
-        address = parts[6];
+        requesterId =  extras.getString("requesterId");
+        jobId = extras.getString("jobId");
+        Double pickupLat = extras.getDouble("pickupLatd");
+        Double pickupLon = extras.getDouble("pickupLong");
+        Double dropLat = extras.getDouble("dropLatd");
+        Double dropLon = extras.getDouble("dropLong");
+
 
         drop = new LatLng(dropLat,dropLon);
         pick = new LatLng(pickupLat,pickupLon);
@@ -216,7 +214,7 @@ public class JobDetailsActivity extends GDNBaseActivity implements View.OnClickL
     }
 
     private void requestComplete() {
-        String url = GDNApiHelper.REQUEST_REJECT + requesterId + "/" + jobId + "/complete";
+        String url = GDNApiHelper.JOB_REQUEST +jobId  + "/" + requesterId + "/complete";
         JsonObjectRequest request =    new JsonObjectRequest
                 (Request.Method.GET,url , new Response.Listener<JSONObject>() {
                     @Override

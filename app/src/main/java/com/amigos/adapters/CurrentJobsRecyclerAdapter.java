@@ -50,6 +50,12 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         private final TextView mJobItemstatus;
         private String jobInfo;
         private Context context;
+        Double pickupLat;
+        Double pickupLon;
+        Double dropLat;
+        Double dropLon;
+        String requesterId;
+
 
 
         ViewHolder(Context ctx, View v) {
@@ -65,6 +71,13 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
             Intent intent = new Intent(context, JobDetailsActivity.class);
             intent.putExtra("jobId", mJobItem.getText());
             intent.putExtra("details", jobInfo);
+
+            intent.putExtra("pickupLatd", pickupLat);
+            intent.putExtra("pickupLong", pickupLon);
+            intent.putExtra("dropLatd", dropLat);
+            intent.putExtra("dropLong", dropLon);
+            intent.putExtra("requesterId", requesterId);
+
             context.startActivity(intent);
         }
     }

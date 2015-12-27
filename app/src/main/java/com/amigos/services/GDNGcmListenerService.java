@@ -25,6 +25,8 @@ public class GDNGcmListenerService extends GcmListenerService {
     NotificationCompat.Builder notificationBuilder;
     NotificationManager notificationManager;
     int id = 946;
+    private String jobId;
+    private String address;
 
     /**
      * Called when message is received.
@@ -41,6 +43,12 @@ public class GDNGcmListenerService extends GcmListenerService {
 
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
+
+        String jobDetails = data.getString("details");
+        String[] parts = jobDetails.split(":");
+
+        jobId = parts[1];
+        address = parts[6];
 
         if (from.startsWith("/topics/")) {
             // message received from some topic.
@@ -91,19 +99,19 @@ public class GDNGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         notificationBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("New Job Alert")
+                .setContentTitle("New Job Alert - " + jobId)
                 .setContentText(message)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_play_light)
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("A new Job is available for you"))
+                        .bigText("Delivery Address - " + address))
                 .addAction(R.drawable.ic_cancel_white_24dp,
                        "Reject", piDismiss)
                 .addAction(R.drawable.ic_check_circle_white_24dp,
-                        "Accept", piSnooze)
-                .setAutoCancel(true);
+                        "Accept", piSnooze);
+
 
         notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

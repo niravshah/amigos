@@ -10,26 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.amigos.R;
-import com.amigos.adapters.PendingJobsExpandableAdapter;
+import com.amigos.adapters.CurrentJobsRecyclerAdapter;
 import com.amigos.helpers.GDNApiHelper;
 import com.amigos.helpers.GDNVolleySingleton;
 import com.amigos.model.JobInfo;
-import com.amigos.model.ParentJobInfo;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by Nirav on 16/12/2015.
@@ -37,7 +33,7 @@ import java.util.Iterator;
 public class PendingJobsTabFragment extends Fragment {
 
     private static final String TAB_POSITION = "tab_position";
-    public static final String TAB_NAME = "Payment Pending";
+    public static final String TAB_NAME = "PAST";
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeContainer;
     private Boolean swipeRefresh = false;
@@ -68,7 +64,7 @@ public class PendingJobsTabFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefresh = true;
-                getCurrentJobQueueFromServer();
+                getCurrentJobQueueFromServer(recyclerView);
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -76,46 +72,38 @@ public class PendingJobsTabFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        getCurrentJobQueueFromServer();
+        getCurrentJobQueueFromServer(recyclerView);
         return v;
     }
 
-    private void getCurrentJobQueueFromServer() {
+    private void getCurrentJobQueueFromServer(final RecyclerView recyclerView) {
 
-        String url = GDNApiHelper.JOBS_URL;
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, new Response.Listener<JSONObject>() {
+        String url = GDNApiHelper.JOBS_URL + "/all";
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest
+                (Request.Method.GET, url, new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Iterator<String> respIterator = response.keys();
-                        ArrayList<Object> jobInfos = new ArrayList<>();
-                        while(respIterator.hasNext()){
-                            String next = respIterator.next();
+                    public void onResponse(JSONArray response) {
+                        ArrayList<JobInfo> jobInfos = new ArrayList<>();
+                        for(int i=0;i<response.length();i++){
                             try {
-                                JSONArray arr = (JSONArray) response.get(next);
-                                jobInfos.add(new JobInfo(next,arr.getString(1),arr.getString(0)));
+                                JSONObject obj = (JSONObject) response.get(i);
+                                JobInfo info = new JobInfo(obj.getString("jobId"), obj.getString("currentStatus"));
+                                info.setDropLat(obj.getDouble("dropLatd"));
+                                info.setDropLon(obj.getDouble("dropLong"));
+                                info.setPickupLat(obj.getDouble("pickupLatd"));
+                                info.setPickupLon(obj.getDouble("pickupLong"));
+                                info.setRequesterId(obj.getString("requesterId"));
+                                jobInfos.add(info);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
 
-                        ArrayList<ParentObject> pInfos = new ArrayList<>();
-                        ParentJobInfo pinfo = new ParentJobInfo();
-                        pinfo.setTitle("Test Parent");
-                        pinfo.setChildObjectList(jobInfos);
-                        pInfos.add(pinfo);
-
-                        PendingJobsExpandableAdapter mCrimeExpandableAdapter = new PendingJobsExpandableAdapter(getActivity(), pInfos);
-                        mCrimeExpandableAdapter.setCustomParentAnimationViewId(R.id.parent_list_item_expand_arrow);
-                        mCrimeExpandableAdapter.setParentClickableViewAnimationDefaultDuration();
-                        mCrimeExpandableAdapter.setParentAndIconExpandOnClick(true);
-                        recyclerView.setAdapter(mCrimeExpandableAdapter);
+                        recyclerView.setAdapter(new CurrentJobsRecyclerAdapter(getContext(),jobInfos));
                         if(swipeRefresh){
                             swipeContainer.setRefreshing(false);
-                            Toast.makeText(getActivity(), "Swipe Refresh", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), "Swipe Refresh", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -127,5 +115,6 @@ public class PendingJobsTabFragment extends Fragment {
 
         GDNVolleySingleton.getInstance(getContext()).addToRequestQueue(jsObjRequest);
     }
+
 
 }
