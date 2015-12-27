@@ -34,6 +34,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -64,10 +65,7 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.ninja_location_map);
         mapFragment.getMapAsync(this);
 
-        GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
-        onlineBtn.setText("GO OFFLINE");
-
-
+        getNinjaStatus();
 
     }
 
@@ -112,10 +110,6 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 15);
                 GDNSharedPrefrences.getMap().animateCamera(cameraUpdate);
             }
-
-            //GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
-            //sendAvailableRequesttoServer(GDNApiHelper.STATE_AVAILABLE);
-            //onlineBtn.setText("GO OFFLINE");
 
         }
 
@@ -165,7 +159,8 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
         if(GDNSharedPrefrences.getCurrentState().equals(GDNConstants.ONLINE)){
             sendUnavailableRequesttoServer(GDNApiHelper.STATE_UNAVAILABLE);
         }else {
-            sendAvailableRequesttoServer(GDNApiHelper.STATE_AVAILABLE);
+            String url = GDNApiHelper.STATE_AVAILABLE + GDNSharedPrefrences.getLastLocation().getLatitude() + "/" + GDNSharedPrefrences.getLastLocation().getLongitude();
+            sendAvailableRequesttoServer(url);
         }
     }
 
@@ -211,6 +206,40 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
                         GDNSharedPrefrences.setCurrentState(GDNConstants.OFFLINE);
                         onlineBtn.setText("GO ONLINE");
                         Toast.makeText(MainActivity.this, "You are Offline", Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.e("VolleyErorr", error.getLocalizedMessage() + error.getMessage());
+                    }
+                });
+        GDNVolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    @NonNull
+    private void getNinjaStatus() {
+        JsonObjectRequest request =    new JsonObjectRequest
+                (Request.Method.GET, GDNApiHelper.NINJA_STATUS_REQ, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String result = response.getString("result");
+                            if(result.equals("available")){
+                                GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
+                                onlineBtn.setText("GO OFFLINE");
+                                Toast.makeText(MainActivity.this, "You are Online!", Toast.LENGTH_LONG).show();
+
+                            }else{
+                                GDNSharedPrefrences.setCurrentState(GDNConstants.OFFLINE);
+                                onlineBtn.setText("GO ONLINE");
+                                Toast.makeText(MainActivity.this, "You are Offine!", Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
