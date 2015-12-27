@@ -139,7 +139,7 @@ public class CurrentJobsTabFragment extends Fragment {
                         for(int i=0;i<response.length();i++){
                             try {
                                 JSONObject obj = (JSONObject) response.get(i);
-                                String ninja = obj.getString("servicedby");
+                                String ninja = obj.getString("requesterId");
                                 if(pInfos.containsKey(ninja)){
                                     pInfos.get(ninja).add(new JobInfo(obj.getString("jobId"),obj.getString("currentStatus")));
                                 }else{

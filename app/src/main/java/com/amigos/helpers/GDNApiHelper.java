@@ -11,7 +11,7 @@ public class GDNApiHelper {
     public static final String ACTIVATE_URL = BASE_URL + "/activate";
     public static final String GCM_URL = BASE_URL + "/gcm/ninja";
     public static final String SERVICES_URL = BASE_URL + "/services";
-    public static final String JOBS_URL = BASE_URL + "/jobs/" + GDNSharedPrefrences.getAcctId();
+    public static final String JOBS_URL = BASE_URL + "/jobs/ninja/" + GDNSharedPrefrences.getAcctId();
     public static final String STATE_AVAILABLE = BASE_URL + "/ninja/" + GDNSharedPrefrences.getAcctId() + "/" + GDNSharedPrefrences.getServiceId() + "/available/" + GDNSharedPrefrences.getLastLocation().getLatitude() + "/" + GDNSharedPrefrences.getLastLocation().getLongitude();
     public static final String STATE_UNAVAILABLE = BASE_URL + "/ninja/" + GDNSharedPrefrences.getAcctId() + "/" + GDNSharedPrefrences.getServiceId() + "/unavailable";
 

@@ -37,6 +37,11 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
         viewHolder.mJobItem.setText(item.getJobId());
         viewHolder.mJobItemstatus.setText(item.getJobStatus());
         viewHolder.jobInfo = item.getJobDetails();
+        viewHolder.dropLat = item.getDropLat();
+        viewHolder.dropLon = item.getDropLon();
+        viewHolder.pickupLat = item.getPickupLat();
+        viewHolder.pickupLon = item.getPickupLon();
+        viewHolder.requesterId = item.getRequesterId();
     }
 
     @Override
