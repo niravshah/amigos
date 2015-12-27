@@ -64,6 +64,10 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.ninja_location_map);
         mapFragment.getMapAsync(this);
 
+        GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
+        onlineBtn.setText("GO OFFLINE");
+
+
 
     }
 
@@ -109,9 +113,9 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
                 GDNSharedPrefrences.getMap().animateCamera(cameraUpdate);
             }
 
-            GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
-            sendAvailableRequesttoServer(GDNApiHelper.STATE_AVAILABLE);
-            onlineBtn.setText("GO OFFLINE");
+            //GDNSharedPrefrences.setCurrentState(GDNConstants.ONLINE);
+            //sendAvailableRequesttoServer(GDNApiHelper.STATE_AVAILABLE);
+            //onlineBtn.setText("GO OFFLINE");
 
         }
 
