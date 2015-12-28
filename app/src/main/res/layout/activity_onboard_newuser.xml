@@ -11,48 +11,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome"
+        android:text="Welcome, Amigo"
         android:layout_centerInParent="true"
-        android:id="@+id/textView2"
+        android:id="@+id/welcome_tv"
         android:layout_gravity="center"
         android:textColor="#fffefe"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_centerInParent="true"
-        android:layout_below="@id/textView2"
+        android:layout_below="@id/welcome_tv"
         android:id="@+id/profile_image"
         android:layout_width="126dp"
         android:layout_height="126dp"
         android:background="@color/primary"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/profile"
         app:civ_border_width="6dp"
-        app:civ_border_color="@color/primary_dark"
+        app:civ_border_color="@color/accent"
         android:gravity="center"/>
 
     <TextView
         android:layout_centerInParent="true"
+        android:id="@+id/display_name_tv"
         android:layout_below="@id/profile_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="User"
-        android:id="@+id/user_name"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#ffffff"
-        android:singleLine="true"
-        android:layout_marginTop="10dp" />
-
-    <TextView
-        android:layout_centerInParent="true"
-        android:layout_below="@id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Enter a Password"
-        android:id="@+id/textView3"
+        android:text="Enter Your Name"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:textColor="#ffffff" />
@@ -60,10 +47,38 @@
     <EditText
         android:layout_centerInParent="true"
         android:maxLines="1"
-        android:layout_below="@id/textView3"
+        android:layout_below="@id/display_name_tv"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:id="@+id/editText"
+        android:id="@+id/display_name_et"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#ffffff"
+        android:textAlignment="center"
+        android:hint="Your Name"
+        android:textSize="14dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:layout_below="@id/display_name_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Enter a Password"
+        android:id="@+id/enter_password_tv"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_centerInParent="true"
+        android:maxLines="1"
+        android:layout_below="@id/enter_password_tv"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:id="@+id/enter_password_ev"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="#ffffff"
@@ -75,12 +90,12 @@
         android:nextFocusDown="@+id/editText2"/>
 
     <EditText
-        android:layout_below="@id/editText"
+        android:layout_below="@id/enter_password_ev"
         android:maxLines="1"
         android:layout_centerInParent="true"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:id="@+id/editText2"
+        android:id="@+id/repeat_password_tv"
         android:layout_marginTop="20dp"
         android:background="#ffffff"
         android:textAlignment="center"
@@ -92,14 +107,15 @@
 
     <Button
         android:layout_centerInParent="true"
-        android:layout_below="@id/editText2"
+        android:layout_below="@id/repeat_password_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/next1"
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff"
-        android:layout_marginTop="80dp"
-        android:nextFocusForward="@+id/editText2"/>
+        android:layout_marginTop="40dp"
+        android:nextFocusForward="@+id/editText2"
+        android:background="@color/accent" />
     -->
 </RelativeLayout>

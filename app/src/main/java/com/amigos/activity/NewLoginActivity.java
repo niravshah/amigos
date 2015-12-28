@@ -228,7 +228,8 @@ public class NewLoginActivity extends AppCompatActivity implements
             // Display signed-in UI
             GoogleSignInAccount gsa = gsr.getSignInAccount();
             GDNSharedPrefrences.setAcctName(gsa.getDisplayName());
-            GDNSharedPrefrences.setPhotUrl(gsa.getPhotoUrl().toString());
+            if(gsa.getPhotoUrl()!=null){
+            GDNSharedPrefrences.setPhotUrl(gsa.getPhotoUrl().toString());}
             GDNSharedPrefrences.setAcctEmail(gsa.getEmail());
             GDNSharedPrefrences.setAcctId(gsa.getId());
 
@@ -365,7 +366,7 @@ public class NewLoginActivity extends AppCompatActivity implements
             String personName = acct.getDisplayName();
             String personEmail = acct.getEmail();
             String accountId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
+            final Uri personPhoto = acct.getPhotoUrl();
             String idToken = acct.getIdToken();
 
             JSONObject data = new JSONObject();
@@ -387,6 +388,8 @@ public class NewLoginActivity extends AppCompatActivity implements
                             Boolean newUser = false;
                             String defaultService = "s1";
                             String defaultServiceName = "Takeaway Delivery";
+                            String userName = null;
+                            String photoUrl = null;
                             JSONObject user;
                             try {
                                 user = response.getJSONObject("user");
@@ -394,11 +397,15 @@ public class NewLoginActivity extends AppCompatActivity implements
                                 newUser = (Boolean) user.get("new");
                                 defaultService = (String) user.get("defaultService");
                                 defaultServiceName = (String) user.get("defaultServiceName");
+                                userName = (String) user.get("personName");
+                                photoUrl = (String) user.get("personPhoto");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             GDNSharedPrefrences.setServiceId(defaultService);
                             GDNSharedPrefrences.setCurrentService(defaultServiceName);
+                            GDNSharedPrefrences.setPhotUrl(photoUrl);
+                            GDNSharedPrefrences.setAcctName(userName);
 
                             if (active) {
                                 if (ContextCompat.checkSelfPermission(NewLoginActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
