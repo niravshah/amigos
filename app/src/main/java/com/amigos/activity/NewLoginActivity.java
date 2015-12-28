@@ -387,11 +387,13 @@ public class NewLoginActivity extends AppCompatActivity implements
                             Boolean newUser = false;
                             String defaultService = "s1";
                             String defaultServiceName = "Takeaway Delivery";
+                            JSONObject user;
                             try {
-                                active = (Boolean) response.get("active");
-                                newUser = (Boolean) response.get("new");
-                                defaultService = (String) response.get("defaultService");
-                                defaultServiceName = (String) response.get("defaultServiceName");
+                                user = response.getJSONObject("user");
+                                active = (Boolean) user.get("active");
+                                newUser = (Boolean) user.get("new");
+                                defaultService = (String) user.get("defaultService");
+                                defaultServiceName = (String) user.get("defaultServiceName");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
