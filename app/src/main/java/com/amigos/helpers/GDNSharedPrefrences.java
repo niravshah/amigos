@@ -22,6 +22,11 @@ public class GDNSharedPrefrences {
     private static String acctId;
     private static String serviceId;
     private static String currentState;
+    private static Boolean stripeConnected;
+    private static Boolean stripeActive;
+    private static Boolean phoneVerified;
+    private static String token;
+    private static String stripeAccount;
 
     public static String getAcctEmail() {
         return acctEmail;
@@ -105,5 +110,45 @@ public class GDNSharedPrefrences {
 
     public static void setCurrentState(String currentState) {
         GDNSharedPrefrences.currentState = currentState;
+    }
+
+    public static Boolean getStripeConnected() {
+        return stripeConnected;
+    }
+
+    public static void setStripeConnected(Boolean stripeConnected) {
+        GDNSharedPrefrences.stripeConnected = stripeConnected;
+    }
+
+    public static Boolean getStripeActive() {
+        return stripeActive;
+    }
+
+    public static void setStripeActive(Boolean stripeActive) {
+        GDNSharedPrefrences.stripeActive = stripeActive;
+    }
+
+    public static Boolean getPhoneVerified() {
+        return phoneVerified;
+    }
+
+    public static void setPhoneVerified(Boolean phoneVerified) {
+        GDNSharedPrefrences.phoneVerified = phoneVerified;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        GDNSharedPrefrences.token = token;
+    }
+
+    public static String getStripeAccount() {
+        return stripeAccount;
+    }
+
+    public static void setStripeAccount(String stripeAccount) {
+        GDNSharedPrefrences.stripeAccount = stripeAccount;
     }
 }

@@ -384,27 +384,48 @@ public class NewLoginActivity extends AppCompatActivity implements
                     (Request.Method.POST, GDNApiHelper.LOGIN_URL, data, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            JSONObject user;
                             Boolean active = false;
                             Boolean newUser = false;
                             String defaultService = "s1";
                             String defaultServiceName = "Takeaway Delivery";
                             String userName = null;
                             String photoUrl = null;
-                            JSONObject user;
+                            Boolean stripeConnected = false;
+                            Boolean stripeActive = false;
+                            String stripeAccount = null;
+                            Boolean phoneVerified = false;
+                            String token = null;
                             try {
                                 user = response.getJSONObject("user");
+                                token = response.getString("token");
                                 active = (Boolean) user.get("active");
                                 newUser = (Boolean) user.get("new");
-                                defaultService = (String) user.get("defaultService");
-                                defaultServiceName = (String) user.get("defaultServiceName");
-                                userName = (String) user.get("personName");
-                                photoUrl = (String) user.get("personPhoto");
+                                defaultService = user.getString("defaultService");
+                                defaultServiceName = user.getString("defaultServiceName");
+                                stripeConnected = user.getBoolean("stripe_connected");
+                                stripeActive = user.getBoolean("stripe_active");
+                                phoneVerified = user.getBoolean("phone_verified");
+                                if(user.has("personName"))
+                                    userName = (String) user.get("personName");
+                                if(user.has("personPhoto"))
+                                    photoUrl = (String) user.get("personPhoto");
+                                if(user.has("stripe_account"))
+                                    stripeAccount = (String) user.get("stripe_account");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             GDNSharedPrefrences.setServiceId(defaultService);
                             GDNSharedPrefrences.setCurrentService(defaultServiceName);
+                            GDNSharedPrefrences.setStripeActive(stripeActive);
+                            GDNSharedPrefrences.setStripeConnected(stripeConnected);
+                            GDNSharedPrefrences.setPhoneVerified(phoneVerified);
+                            GDNSharedPrefrences.setToken(token);
+                            GDNSharedPrefrences.setStripeAccount(stripeAccount);
+
+                            if(photoUrl!=null)
                             GDNSharedPrefrences.setPhotUrl(photoUrl);
+                            if(userName != null)
                             GDNSharedPrefrences.setAcctName(userName);
 
                             if (active) {

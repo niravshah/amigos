@@ -19,4 +19,10 @@ public class GDNApiHelper {
     public static final String NINJA_STATUS_REQ = BASE_URL + "/ninja/" + GDNSharedPrefrences.getAcctId() + "/status/" + GDNSharedPrefrences.getServiceId();
 
     public static final String UPDATE_IMAGE_URL = BASE_URL + "/" + GDNSharedPrefrences.getAcctId() + "/update/image";
+    public static final String REQUEST_PHONE_VERIFICATION_CODE = BASE_URL + "/phonecode/" + GDNSharedPrefrences.getAcctId();
+    public static final String VERIFY_PHONE_VERIFICATION_CODE = BASE_URL + "/phonecode/" + GDNSharedPrefrences.getAcctId();
+
+    public static final String STRIPE_CREATE_ACCOUNT = BASE_URL + "/stripe/connect/" + GDNSharedPrefrences.getAcctId() + "/new";
+    public static final String STRIPE_DASHBOARD_URL = "https://dashboard.stripe.com/account/activate?client_id=ca_7QaNuooD8Q1DpgajUNGGMZQKaTaoqAMe&user_id=";
+
 }

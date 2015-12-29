@@ -67,20 +67,22 @@ public abstract class GDNBaseActivity extends AppCompatActivity {
         userName.setText(GDNSharedPrefrences.getAcctName());
         final CircleImageView imageView = (CircleImageView) drawerHeader.findViewById(R.id.profile_image);
 
-        ImageRequest request = new ImageRequest(GDNSharedPrefrences.getPhotUrl(),
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        imageView.setImageBitmap(bitmap);
-                    }
-                }, 0, 0, null,
-                new Response.ErrorListener() {
-                    public void onErrorResponse(VolleyError error) {
-                        imageView.setImageResource(R.drawable.profile);
-                    }
-                });
+        if(GDNSharedPrefrences.getPhotUrl() != null) {
+            ImageRequest request = new ImageRequest(GDNSharedPrefrences.getPhotUrl(),
+                    new Response.Listener<Bitmap>() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            imageView.setImageBitmap(bitmap);
+                        }
+                    }, 0, 0, null,
+                    new Response.ErrorListener() {
+                        public void onErrorResponse(VolleyError error) {
+                            imageView.setImageResource(R.drawable.profile);
+                        }
+                    });
 
-        GDNVolleySingleton.getInstance(this).addToRequestQueue(request);
+            GDNVolleySingleton.getInstance(this).addToRequestQueue(request);
+        }
     }
 
     @Override

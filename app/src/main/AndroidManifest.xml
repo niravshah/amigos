@@ -8,7 +8,8 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <permission android:name="com.amigos.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.amigos.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.demandnow.permission.C2D_MESSAGE" />
 
@@ -19,21 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="CLOUDINARY_URL" android:value="cloudinary://574627967974557:jcnCciwxXt4Djh3qVdIV9JSui6A@specky"/>
+        <meta-data
+            android:name="CLOUDINARY_URL"
+            android:value="cloudinary://574627967974557:jcnCciwxXt4Djh3qVdIV9JSui6A@specky" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCg6Ra9T7fiLrWaPOMFlZLRBShx2YAy7q4" />
-
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="com.demandnow.intents.ACTION_ACCEPT" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
 
         <activity android:name=".activity.NewLoginActivity">
             <intent-filter>
@@ -44,8 +37,7 @@
         <activity
             android:name=".activity.onboard.NewUserRegistrationActivity"
             android:label="New User Registration"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".activity.onboard.LocationPermissionActivity"
             android:label="Location Permission"
@@ -56,16 +48,28 @@
         </activity>
 
         <activity
-            android:name=".activity.NewJobRequestActivity"
-            android:label="New Job Request"
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.demandnow.intents.ACTION_ACCEPT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.PhoneVerificationActivity"
+            android:label="Phone Verification"
             android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
-            <intent-filter>
-                <action android:name=".activity.NewJobRequestActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ConnectStripeActivity"
+            android:label="Create Payment Account"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
             android:name=".activity.ServiceSelectorActivity"
@@ -91,11 +95,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.JobSummaryViewActivity" />
         </activity>
-
+        <activity
+            android:name=".activity.NewJobRequestActivity"
+            android:label="New Job Request"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+            <intent-filter>
+                <action android:name=".activity.NewJobRequestActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="com.example.gcm" />
@@ -104,7 +119,7 @@
 
         <service
             android:name=".services.GDNGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -113,20 +128,17 @@
             android:name=".services.GDNInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
             android:name=".services.RegistrationIntentService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
         <service
             android:name=".services.GDNCounterService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
         <service
             android:name=".services.CloudinaryUploadService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
     </application>
 </manifest>

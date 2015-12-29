@@ -9,9 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amigos.R;
@@ -40,11 +38,9 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class NewUserRegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 12;
-    private EditText eText;
     private TextView mWelcome;
     private TextView mDisplayName;
     private EditText eDisplayName;
-    private TextView mEnterPassword;
     private CircleImageView imageView;
 
 
@@ -63,15 +59,10 @@ public class NewUserRegistrationActivity extends AppCompatActivity implements Vi
 
         mDisplayName = (TextView) findViewById(R.id.display_name_tv);
         eDisplayName = (EditText) findViewById(R.id.display_name_et);
-        mEnterPassword = (TextView) findViewById(R.id.enter_password_tv);
-        if(GDNSharedPrefrences.getAcctName()!=null){
-            mDisplayName.setVisibility(View.INVISIBLE);
-            eDisplayName.setVisibility(View.INVISIBLE);
 
-            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            p.addRule(RelativeLayout.BELOW, R.id.profile_image);
-            mEnterPassword.setLayoutParams(p);
+
+        if(GDNSharedPrefrences.getAcctName()!=null){
+            eDisplayName.setText(GDNSharedPrefrences.getAcctName());
         }
 
         imageView = (CircleImageView) findViewById(R.id.profile_image);
@@ -79,30 +70,29 @@ public class NewUserRegistrationActivity extends AppCompatActivity implements Vi
             String url = GDNSharedPrefrences.getPhotUrl().replace("96", "226");
             Picasso.with(getApplicationContext()).load(url)
                     .placeholder(R.drawable.profile).into(imageView);
-        }else{
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (ContextCompat.checkSelfPermission(NewUserRegistrationActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(NewUserRegistrationActivity.this,
-                                new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
-                    }else{
-                        EasyImage.openGallery(NewUserRegistrationActivity.this);
-                    }
-
-                }
-            });
         }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ContextCompat.checkSelfPermission(NewUserRegistrationActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(NewUserRegistrationActivity.this,
+                            new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+                }else{
+                    EasyImage.openGallery(NewUserRegistrationActivity.this);
+                }
+
+            }
+        });
+
 
         EasyImage.configuration(this)
                 .setImagesFolderName("goAmigos")
                 .saveInAppExternalFilesDir()
                 .setCopyExistingPicturesToPublicLocation(true);
 
-        eText = (EditText) findViewById(R.id.enter_password_ev);
     }
 
     @Override
@@ -120,7 +110,8 @@ public class NewUserRegistrationActivity extends AppCompatActivity implements Vi
         JSONObject data = new JSONObject();
         try {
             data.put("aId", GDNSharedPrefrences.getAcctId());
-            data.put("password", eText.getText().toString());
+            //data.put("password", eText.getText().toString());
+            data.put("password", "temppassword");
             if(GDNSharedPrefrences.getAcctName() == null){
                 if(eDisplayName.getText() != null){
                     data.put("personName", eDisplayName.getText().toString());

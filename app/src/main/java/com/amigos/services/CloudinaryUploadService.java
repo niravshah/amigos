@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.amigos.helpers.GDNApiHelper;
+import com.amigos.helpers.GDNSharedPrefrences;
 import com.amigos.helpers.GDNVolleySingleton;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.android.Utils;
 import com.cloudinary.utils.ObjectUtils;
 
@@ -51,14 +53,15 @@ public class CloudinaryUploadService extends IntentService {
         try {
             Map upload = cloudinary.uploader().upload(new FileInputStream(imageFile), ObjectUtils.emptyMap());
             Log.i("CLOUDINARY", upload.toString());
-            String savedUrl = (String) upload.get("url");
-            saveImageUrlToAccount(savedUrl);
+            String publicId = (String) upload.get("public_id");
+            String small_url = cloudinary.url().transformation(new Transformation().width(126).height(126).crop("fill")).generate(publicId);
+            saveImageUrlToAccount(small_url);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void saveImageUrlToAccount(String savedUrl) {
+    private void saveImageUrlToAccount(final String savedUrl) {
         JSONObject data = new JSONObject();
         try {
             data.put("personPhoto", savedUrl);
@@ -69,7 +72,7 @@ public class CloudinaryUploadService extends IntentService {
                 (Request.Method.POST, GDNApiHelper.UPDATE_IMAGE_URL, data, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        GDNSharedPrefrences.setPhotUrl(savedUrl);
                     }
                 }, new Response.ErrorListener() {
                     @Override

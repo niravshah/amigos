@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+            <include layout="@layout/fragment_app_bar" />
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar"
+            android:layout_marginTop="60dp"
+            android:paddingBottom="20dp"
+            tools:context=".MyActivity"
+            android:background="@color/primary">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Add Payment Details"
+                android:textColor="@color/accent"
+                android:id="@+id/phone_verification_title"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="We use Stripe to offer maximum protection to your Bank Details. You will need to connect a Stripe Account to process payments"
+                android:id="@+id/phone_verification_subtitle"
+                android:layout_below="@+id/phone_verification_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Create Account"
+                android:background="@color/accent"
+                android:id="@+id/button_create_account"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/phone_verification_subtitle"
+                android:layout_marginTop="60dp"/>
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Activate Account"
+                android:id="@+id/button_activate_account"
+                android:layout_centerHorizontal="true"
+                android:background="@color/accent"
+                android:layout_below="@+id/button_create_account"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                android:src="@drawable/powered_by_stripe"
+                android:layout_below="@+id/button_activate_account"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"/>
+
+
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <include layout="@layout/fragment_navigation_view" />
+
+</android.support.v4.widget.DrawerLayout>

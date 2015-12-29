@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +68,29 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
         mapFragment.getMapAsync(this);
 
         getNinjaStatus();
+        isUserStripConnected();
 
+    }
+
+    private void isUserStripConnected() {
+        if(!GDNSharedPrefrences.getStripeConnected()){
+            Snackbar.make(findViewById(R.id.coordinator), "To get paid, you need to add Bank Details.", Snackbar.LENGTH_INDEFINITE).setAction("ADD", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this,ConnectStripeActivity.class));
+                }
+            }).show();
+        }else if(!GDNSharedPrefrences.getStripeActive()){
+            Snackbar.make(findViewById(R.id.coordinator), "Please activate your Stripe Account", Snackbar.LENGTH_INDEFINITE).setAction("ACTIVATE", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = GDNApiHelper.STRIPE_DASHBOARD_URL + GDNSharedPrefrences.getStripeAccount();
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            }).show();
+        }
     }
 
     private void initializeBroadcastReciever() {
@@ -159,8 +183,12 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
         if(GDNSharedPrefrences.getCurrentState().equals(GDNConstants.ONLINE)){
             sendUnavailableRequesttoServer(GDNApiHelper.STATE_UNAVAILABLE);
         }else {
-            String url = GDNApiHelper.STATE_AVAILABLE + GDNSharedPrefrences.getLastLocation().getLatitude() + "/" + GDNSharedPrefrences.getLastLocation().getLongitude();
-            sendAvailableRequesttoServer(url);
+            if(GDNSharedPrefrences.getPhoneVerified()) {
+                String url = GDNApiHelper.STATE_AVAILABLE + GDNSharedPrefrences.getLastLocation().getLatitude() + "/" + GDNSharedPrefrences.getLastLocation().getLongitude();
+                sendAvailableRequesttoServer(url);
+            }else{
+                startActivity(new Intent(this,PhoneVerificationActivity.class));
+            }
         }
     }
 
