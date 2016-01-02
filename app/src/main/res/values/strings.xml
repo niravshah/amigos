@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Amigos</string>
+    <string name="app_name">Presto Partner</string>
     <string name="drawer_header_text">Get Done Now</string>
     <string name="action_job_summary">Job List</string>
     <string name="action_service_selector">Service Selector</string>

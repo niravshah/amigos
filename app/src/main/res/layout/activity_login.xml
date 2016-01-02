@@ -12,7 +12,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:id="@+id/imageView2"
-        android:src="@drawable/spalsh_2_640"
+        android:src="@drawable/presto_spalsh_2"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
