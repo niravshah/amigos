@@ -98,6 +98,8 @@ public class ConnectStripeActivity extends GDNBaseActivity implements View.OnCli
                         bCreateAccount.setEnabled(false);
                         bActivateAccount.setEnabled(true);
                         Toast.makeText(ConnectStripeActivity.this,"Account Created. Please Activate.", Toast.LENGTH_LONG).show();
+                        GDNSharedPrefrences.setStripeConnected(true);
+                        GDNSharedPrefrences.setStripeAccount(stripe_account_id);
                     }
                 }, new Response.ErrorListener() {
                     @Override

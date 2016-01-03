@@ -12,9 +12,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.amigos.R;
+import com.amigos.activity.MainActivity;
 import com.amigos.activity.NewJobRequestActivity;
 import com.amigos.helpers.GDNConstants;
 import com.google.android.gms.gcm.GcmListenerService;
+
+import java.util.Random;
 
 /**
  * Created by Nirav on 29/11/2015.
@@ -24,7 +27,6 @@ public class GDNGcmListenerService extends GcmListenerService {
     private static final String TAG = "MyGcmListenerService";
     NotificationCompat.Builder notificationBuilder;
     NotificationManager notificationManager;
-    int id = 946;
     private String jobId;
     private String address;
 
@@ -35,43 +37,62 @@ public class GDNGcmListenerService extends GcmListenerService {
      * @param data Data bundle containing message data as key/value pairs.
      *             For Set of keys use data.keySet().
      */
-    // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
+        String type = data.getString("type");
         String message = data.getString("gcm.notification.message");
         String details = data.getString("details");
+
+        switch (type){
+            case "PAYMENT":
+                processPaymentNotification(details, message);
+                break;
+            case "JOB":
+                processJobNotification(details,message);
+                break;
+            default:
+                break;
+
+        }
 
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
-        String jobDetails = data.getString("details");
-        String[] parts = jobDetails.split(":");
+    }
 
+    private void processJobNotification(String details, String message) {
+        String[] parts = details.split(":");
         jobId = parts[1];
         address = parts[6];
+        message = message + "-" + jobId;
+        sendJobNotification(message, details);
 
-        if (from.startsWith("/topics/")) {
-            // message received from some topic.
-        } else {
-            // normal downstream message.
-        }
-
-        // [START_EXCLUDE]
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
-         */
-
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
-         */
-        sendNotification(message, details);
-        // [END_EXCLUDE]
     }
-    // [END receive_message]
+
+    private void processPaymentNotification(String details, String message) {
+        sendNotification(message,details);
+    }
+
+    private void sendNotification(String message, String details) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_play_light)
+                .setContentTitle(message)
+                .setContentText(details)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    }
 
     /**
      * Create and show a simple notification containing the received GCM message.
@@ -79,7 +100,7 @@ public class GDNGcmListenerService extends GcmListenerService {
      * @param message GCM message received.
      * @param details
      */
-    private void sendNotification(String message, String details) {
+    private void sendJobNotification(String message, String details) {
         Intent intent = new Intent(this, NewJobRequestActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setAction(GDNConstants.ACTION_DETAILS);
@@ -99,14 +120,14 @@ public class GDNGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         notificationBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("New Job Alert - " + jobId)
+                .setContentTitle("New Job Alert")
                 .setContentText(message)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSound(defaultSoundUri)
                 .setSmallIcon(R.drawable.ic_play_light)
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Delivery Address - " + address))
+                        .bigText(details))
                 .addAction(R.drawable.ic_cancel_white_24dp,
                        "Reject", piDismiss)
                 .addAction(R.drawable.ic_check_circle_white_24dp,
@@ -116,7 +137,7 @@ public class GDNGcmListenerService extends GcmListenerService {
         notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(id, notificationBuilder.build());
+        notificationManager.notify(new Random().nextInt(), notificationBuilder.build());
     }
 
 }

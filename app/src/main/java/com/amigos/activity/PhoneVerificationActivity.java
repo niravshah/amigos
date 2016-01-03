@@ -86,7 +86,7 @@ public class PhoneVerificationActivity extends GDNBaseActivity implements View.O
     }
 
     private void requestCode() {
-
+        bRequestCode.setEnabled(false);
         JSONObject data = new JSONObject();
         try {
             data.put("phoneNumber", ePhoneNumber.getText());
@@ -98,6 +98,7 @@ public class PhoneVerificationActivity extends GDNBaseActivity implements View.O
                 (Request.Method.POST, GDNApiHelper.REQUEST_PHONE_VERIFICATION_CODE, data, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Toast.makeText(PhoneVerificationActivity.this,"Verification Code Sent. Please check your text messages", Toast.LENGTH_SHORT);
                     }
                 }, new Response.ErrorListener() {
                     @Override
