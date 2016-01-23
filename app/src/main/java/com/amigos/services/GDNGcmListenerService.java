@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.amigos.R;
@@ -70,7 +71,7 @@ public class GDNGcmListenerService extends GcmListenerService {
     }
 
     private void processPaymentNotification(String details, String message) {
-        sendNotification(message,details);
+        sendNotification(details, message);
     }
 
     private void sendNotification(String message, String details) {
@@ -81,6 +82,7 @@ public class GDNGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setColor(ContextCompat.getColor(this, R.color.primary_dark))
                 .setSmallIcon(R.drawable.ic_stat_dn_notification)
                 .setContentTitle(message)
                 .setContentText(details)
@@ -124,6 +126,7 @@ public class GDNGcmListenerService extends GcmListenerService {
                 .setContentText(address)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSound(defaultSoundUri)
+                .setColor(ContextCompat.getColor(this, R.color.primary_dark))
                 .setSmallIcon(R.drawable.ic_stat_dn_notification)
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()

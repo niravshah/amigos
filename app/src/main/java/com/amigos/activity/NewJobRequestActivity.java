@@ -1,6 +1,7 @@
 package com.amigos.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -254,7 +255,7 @@ public class NewJobRequestActivity extends GDNBaseActivity implements View.OnCli
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(getApplicationContext(), "Job Request Accepted", Toast.LENGTH_LONG).show();
-                        NavUtils.navigateUpFromSameTask(NewJobRequestActivity.this);
+                        startActivity(new Intent(NewJobRequestActivity.this,JobSummaryViewActivity.class));
                     }
                 }, new Response.ErrorListener() {
                     @Override

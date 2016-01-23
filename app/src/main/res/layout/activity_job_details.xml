@@ -69,8 +69,7 @@
                     android:id="@+id/request_complete"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/accent"
-                    android:elevation="20dp"
-                    android:textColor="#ffffff" />
+                    android:elevation="20dp"/>
 
 
 

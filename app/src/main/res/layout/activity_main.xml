@@ -53,8 +53,7 @@
                     android:id="@+id/go_online"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/accent"
-                    android:elevation="20dp"
-                    android:textColor="#ffffff" />
+                    android:elevation="20dp"/>
             </LinearLayout>
         </LinearLayout>
 

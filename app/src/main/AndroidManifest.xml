@@ -98,10 +98,10 @@
         <activity
             android:name=".activity.NewJobRequestActivity"
             android:label="New Job Request"
-            android:parentActivityName=".activity.MainActivity">
+            android:parentActivityName=".activity.JobSummaryViewActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.JobSummaryViewActivity" />
             <intent-filter>
                 <action android:name=".activity.NewJobRequestActivity" />
                 <category android:name="android.intent.category.DEFAULT" />

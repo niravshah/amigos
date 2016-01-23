@@ -52,29 +52,16 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Medium Text"
+                    android:text="Distance Time"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
                     android:id="@+id/route_info"
                     android:layout_gravity="center_horizontal" />
 
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="50"
-                    android:layout_marginRight="10dp">
-                    <AutoCompleteTextView
-                        android:id="@+id/postCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Postcode"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:popupBackground="@color/primary_dark"/>
-                </android.support.design.widget.TextInputLayout>
 
                 <Button
                     android:layout_marginTop="10dp"
@@ -85,29 +72,14 @@
                     android:id="@+id/accept_request"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/accent"
-                    android:elevation="20dp"
-                    android:textColor="#ffffff" />
+                    android:elevation="20dp"/>
 
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="50"
-                    android:layout_marginRight="10dp">
-                    <AutoCompleteTextView
-                        android:id="@+id/postCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Postcode"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:popupBackground="@color/primary_dark"/>
-                </android.support.design.widget.TextInputLayout>
 
                 <Button
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_width="75dp"
-                    android:layout_height="30dp"
                     android:textSize="12dp"
                     android:text="REJECT"
                     android:id="@+id/reject_request"
