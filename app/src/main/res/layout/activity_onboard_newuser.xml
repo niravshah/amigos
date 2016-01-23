@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome, Amigo"
+        android:text="Welcome"
         android:layout_centerInParent="true"
         android:id="@+id/welcome_tv"
         android:layout_gravity="center"
@@ -25,9 +25,9 @@
         android:text="Lets get you started!"
         android:id="@+id/sub_title"
         android:layout_below="@+id/welcome_tv"
-        android:layout_alignEnd="@+id/welcome_tv"
         android:layout_marginTop="10dp"
-        android:textColor="@color/accent" />
+        android:textColor="@color/accent"
+        android:layout_centerHorizontal="true" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_centerInParent="true"

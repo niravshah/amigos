@@ -74,9 +74,13 @@ public class NewLoginActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getString(com.google.android.gms.R.string.common_signin_button_text_long);
+
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(this);
+
 
         if (savedInstanceState != null) {
             mIsResolving = savedInstanceState.getBoolean(KEY_IS_RESOLVING, false);
@@ -388,7 +392,7 @@ public class NewLoginActivity extends AppCompatActivity implements
                             Boolean active = false;
                             Boolean newUser = false;
                             String defaultService = "s1";
-                            String defaultServiceName = "Takeaway Delivery";
+                            String defaultServiceName = "Food Delivery";
                             String userName = null;
                             String photoUrl = null;
                             Boolean stripeConnected = false;

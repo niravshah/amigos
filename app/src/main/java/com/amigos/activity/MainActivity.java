@@ -54,7 +54,7 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Toast.makeText(MainActivity.this, "Logged In: " + GDNSharedPrefrences.getAcctName(), Toast.LENGTH_LONG).show();
+       // Toast.makeText(MainActivity.this, "Logged In: " + GDNSharedPrefrences.getAcctName(), Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_main);
         renderToolbarActionbar();
         renderNavigationDrawer();
@@ -102,9 +102,9 @@ public class MainActivity extends GDNBaseActivity implements GoogleApiClient.Con
                 boolean sentToken = sharedPreferences
                         .getBoolean(GDNSharedPrefrences.SENT_TOKEN_TO_SERVER, false);
                 if (sentToken) {
-                    Toast.makeText(MainActivity.this, "GCM Token Sent", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(MainActivity.this, "GCM Token Sent", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "GCM Token Error", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(MainActivity.this, "GCM Token Error", Toast.LENGTH_LONG).show();
                 }
             }
         };

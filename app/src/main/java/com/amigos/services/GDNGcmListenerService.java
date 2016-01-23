@@ -64,7 +64,7 @@ public class GDNGcmListenerService extends GcmListenerService {
         String[] parts = details.split(":");
         jobId = parts[1];
         address = parts[6];
-        message = message + "-" + jobId;
+
         sendJobNotification(message, details);
 
     }
@@ -81,7 +81,7 @@ public class GDNGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_play_light)
+                .setSmallIcon(R.drawable.ic_stat_dn_notification)
                 .setContentTitle(message)
                 .setContentText(details)
                 .setAutoCancel(true)
@@ -121,13 +121,13 @@ public class GDNGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         notificationBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle("New Job Alert")
-                .setContentText(message)
+                .setContentText(address)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSound(defaultSoundUri)
-                .setSmallIcon(R.drawable.ic_play_light)
+                .setSmallIcon(R.drawable.ic_stat_dn_notification)
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(details))
+                        .bigText(address))
                 .addAction(R.drawable.ic_cancel_white_24dp,
                        "Reject", piDismiss)
                 .addAction(R.drawable.ic_check_circle_white_24dp,

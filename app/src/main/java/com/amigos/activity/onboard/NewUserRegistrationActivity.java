@@ -52,11 +52,6 @@ public class NewUserRegistrationActivity extends AppCompatActivity implements Vi
 
 
 
-        mWelcome = (TextView) findViewById(R.id.welcome_tv);
-        if(GDNSharedPrefrences.getAcctName()!=null){
-            mWelcome.setText("Welcome," + GDNSharedPrefrences.getAcctName());
-        }
-
         mDisplayName = (TextView) findViewById(R.id.display_name_tv);
         eDisplayName = (EditText) findViewById(R.id.display_name_et);
 
