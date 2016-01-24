@@ -13,6 +13,8 @@ public class JobInfo {
     Double dropLat;
     Double dropLon;
     String requesterId;
+    String requesterName;
+    String requesterPhoto;
 
     public String getRequesterId() {
         return requesterId;
@@ -82,5 +84,21 @@ public class JobInfo {
 
     public void setJobDetails(String jobDetails) {
         this.jobDetails = jobDetails;
+    }
+
+    public String getRequesterName() {
+        return requesterName;
+    }
+
+    public void setRequesterName(String requesterName) {
+        this.requesterName = requesterName;
+    }
+
+    public String getRequesterPhoto() {
+        return requesterPhoto;
+    }
+
+    public void setRequesterPhoto(String requesterPhoto) {
+        this.requesterPhoto = requesterPhoto;
     }
 }

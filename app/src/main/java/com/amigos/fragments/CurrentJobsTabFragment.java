@@ -135,16 +135,21 @@ public class CurrentJobsTabFragment extends Fragment {
                     public void onResponse(JSONArray response) {
 
                         Map<String, List> pInfos = new HashMap<>();
-
                         for(int i=0;i<response.length();i++){
                             try {
                                 JSONObject obj = (JSONObject) response.get(i);
-                                String ninja = obj.getString("requesterId");
+                                String ninja = obj.getString("rid");
+                                JobInfo info = new JobInfo(obj.getString("jobId"),obj.getString("currentStatus"));
+                                if(obj.has("rphoto"))
+                                    info.setRequesterPhoto(obj.getString("rphoto"));
+                                if(obj.has("rname"))
+                                    info.setRequesterName(obj.getString("rname"));
+
                                 if(pInfos.containsKey(ninja)){
-                                    pInfos.get(ninja).add(new JobInfo(obj.getString("jobId"),obj.getString("currentStatus")));
+                                    pInfos.get(ninja).add(info);
                                 }else{
                                     List<JobInfo> jInfos = new ArrayList();
-                                    jInfos.add(new JobInfo(obj.getString("jobId"),obj.getString("currentStatus")));
+                                    jInfos.add(info);
                                     pInfos.put(ninja,jInfos);
                                 }
                             } catch (JSONException e) {
@@ -157,7 +162,13 @@ public class CurrentJobsTabFragment extends Fragment {
                             ParentJobInfo pinfo = new ParentJobInfo();
                             pinfo.setTitle(ninja);
                             pinfo.setChildObjectList(pInfos.get(ninja));
+
+                            JobInfo zero = (JobInfo) pInfos.get(ninja).get(0);
+                            pinfo.setRphoto(zero.getRequesterPhoto());
+                            pinfo.setRname(zero.getRequesterName());
+                            pinfo.setRid(zero.getRequesterId());
                             master.add(pinfo);
+
                         }
 
                         PendingJobsExpandableAdapter mCrimeExpandableAdapter = new PendingJobsExpandableAdapter(getActivity(), master);

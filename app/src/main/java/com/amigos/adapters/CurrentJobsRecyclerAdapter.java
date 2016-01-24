@@ -35,13 +35,26 @@ public class CurrentJobsRecyclerAdapter extends RecyclerView.Adapter<CurrentJobs
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         JobInfo item = mItems.get(i);
         viewHolder.mJobItem.setText(item.getJobId());
-        viewHolder.mJobItemstatus.setText(item.getJobStatus());
+        viewHolder.mJobItemstatus.setText(getJobStatus(item));
         viewHolder.jobInfo = item.getJobDetails();
         viewHolder.dropLat = item.getDropLat();
         viewHolder.dropLon = item.getDropLon();
         viewHolder.pickupLat = item.getPickupLat();
         viewHolder.pickupLon = item.getPickupLon();
         viewHolder.requesterId = item.getRequesterId();
+    }
+
+    private String getJobStatus(JobInfo item) {
+        switch(item.getJobStatus()) {
+            case "in_progress":
+                return "IN PROGRESS";
+            case "looking_for_drivers":
+                return "SEARCHING DRIVERS";
+            case "new":
+                return "NEW";
+            default:
+                return item.getJobStatus();
+        }
     }
 
     @Override

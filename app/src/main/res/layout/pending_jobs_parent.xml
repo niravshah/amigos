@@ -3,22 +3,60 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/parent_list_item_crime_title_text_view"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textStyle="bold"
-        android:text="Crime Title" />
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-    <ImageButton
-        android:id="@+id/parent_list_item_expand_arrow"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:id="@+id/parent_list_item_crime_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView2"
+            android:padding="10dp"
+            android:text="Business" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/parent_list_item_total_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:text="Total"
+        android:layout_toLeftOf="@+id/linearLayout"
+        android:textColor="@color/accent"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@android:drawable/arrow_down_float"
-        android:background="#ffffff"
-        android:layout_centerVertical="true" />
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/parent_list_item_expand_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/parent_list_item_pay"
+            android:background="#ffffff"
+            android:src="@android:drawable/arrow_down_float" />
+    </LinearLayout>
+
 
 </RelativeLayout>
